@@ -1,0 +1,20 @@
+# Ignore venv
+venv/
+
+# Ignore allure-results
+allure-results/
+
+# Ignore allure-report
+allure-report/
+
+# Ignore demo.txt
+demo.txt
+
+# Ignore .env
+.env
+
+# Ignore .vscode
+.vscode
+
+#Ignore __pycache__
+__pycache__
