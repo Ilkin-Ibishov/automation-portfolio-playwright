@@ -35,6 +35,10 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+
+permissions:
+  contents: write  # Allow pushing to gh-pages branch
+
 jobs:
   test:
     runs-on: ubuntu-latest
