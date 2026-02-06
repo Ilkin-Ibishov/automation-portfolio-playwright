@@ -37,13 +37,17 @@ def pytest_runtest_setup(item):
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
-    """Attach screenshot to Allure on test failure."""
+    """Attach screenshot and video to Allure on test failure."""
     outcome = yield
     report = outcome.get_result()
+    
+    # Store report for other fixtures to access
+    setattr(item, f"rep_{report.when}", report)
     
     if report.when == "call" and report.failed:
         page = item.funcargs.get("page")
         if page:
+            # Attach screenshot
             try:
                 allure.attach(
                     page.screenshot(),
@@ -52,6 +56,18 @@ def pytest_runtest_makereport(item, call):
                 )
             except Exception:
                 pass  # Silently fail if screenshot capture fails
+            
+            # Attach video if available
+            try:
+                video = page.video
+                if video:
+                    video_path = video.path()
+                    # Video file might not be finalized yet, need to close page first
+                    # But we can't close page here, so we'll attach after page closes
+                    # Store path for later attachment
+                    setattr(item, "_video_path", video_path)
+            except Exception:
+                pass
 
 
 def pytest_sessionfinish(session, exitstatus):
@@ -193,6 +209,35 @@ def attach_logs_on_failure(caplog, request):
                 name="Test Logs", 
                 attachment_type=allure.attachment_type.TEXT
             )
+
+
+@pytest.fixture(autouse=True)
+def attach_video_on_failure(page: Page, request):
+    """Attach video to Allure report on test failure."""
+    yield
+    
+    # Check if test failed
+    if hasattr(request.node, "rep_call") and request.node.rep_call.failed:
+        try:
+            video = page.video
+            if video:
+                video_path = video.path()
+                # Close video to finalize the file
+                page.context.close()
+                
+                # Wait briefly for file to be written
+                import time
+                time.sleep(0.5)
+                
+                if os.path.exists(video_path):
+                    with open(video_path, "rb") as f:
+                        allure.attach(
+                            f.read(),
+                            name="Failure Video",
+                            attachment_type=allure.attachment_type.WEBM
+                        )
+        except Exception:
+            pass  # Silently fail if video attachment fails
 
 
 # Backward compatibility aliases
