@@ -1,20 +1,32 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"failed","Sat Feb 07 05:46:55 UTC 2026","Sat Feb 07 05:46:57 UTC 2026","2159","tests.ui","test_products","","","","User can search for products","
-    Given a user on the products page
-    When they search for a product
-    Then all the products related to search are visible
+"passed","Sat Feb 07 10:48:26 UTC 2026","Sat Feb 07 10:48:26 UTC 2026","131","tests.ui","test_auth","","","","User can login with valid credentials","
+    Given a registered user
+    When they login with valid credentials
+    Then they should see their username in the header
     "
-"passed","Sat Feb 07 05:46:58 UTC 2026","Sat Feb 07 05:47:03 UTC 2026","4176","tests.ui","test_products","","","","User can add product to cart","
-    Given a user on the products page
-    When they add first product to the cart
-    And click continue shopping
-    And they add second product to the cart
-    And click view cart
-    Then they should be redirected to the cart page
+"passed","Sat Feb 07 10:48:30 UTC 2026","Sat Feb 07 10:48:30 UTC 2026","518","tests.ui","test_auth","","","","User can logout successfully","
+    Given a logged-in user
+    When they click logout
+    Then they should see the login form
     "
-"passed","Sat Feb 07 05:46:53 UTC 2026","Sat Feb 07 05:46:55 UTC 2026","1578","tests.ui","test_products","","","","Products page displays product list","
-    Given a user navigates to the products page
-    When the page loads
-    Then the products list should be visible
-    And at least one product should be displayed
+"passed","Sat Feb 07 10:48:27 UTC 2026","Sat Feb 07 10:48:28 UTC 2026","1337","tests.ui","test_auth","","","","Login fails with invalid credentials","
+    Given a user on the login page
+    When they attempt to login with invalid credentials
+    Then they should see an error message
+    "
+"passed","Sat Feb 07 10:48:37 UTC 2026","Sat Feb 07 10:48:40 UTC 2026","3017","tests.ui","test_auth","","","","Complete account lifecycle: register, logout, login, delete","
+    Given a new user
+    When they register, logout, login again, and delete their account
+    Then each step should complete successfully
+    "
+"passed","Sat Feb 07 10:48:32 UTC 2026","Sat Feb 07 10:48:32 UTC 2026","114","tests.ui","test_auth","","","","Registration fails for existing email","
+    Given an email that is already registered
+    When a user attempts to sign up with that email
+    Then they should see an error message
+    "
+"passed","Sat Feb 07 10:48:33 UTC 2026","Sat Feb 07 10:48:35 UTC 2026","2027","tests.ui","test_auth","","","","User can complete full registration flow","
+    Given a new user with unique email
+    When they complete the full registration form
+    Then their account should be created
+    And they should be able to delete the account
     "
