@@ -1,32 +1,93 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Sat Feb 07 10:48:26 UTC 2026","Sat Feb 07 10:48:26 UTC 2026","131","tests.ui","test_auth","","","","User can login with valid credentials","
-    Given a registered user
-    When they login with valid credentials
-    Then they should see their username in the header
-    "
-"passed","Sat Feb 07 10:48:30 UTC 2026","Sat Feb 07 10:48:30 UTC 2026","518","tests.ui","test_auth","","","","User can logout successfully","
+"broken","Sun Feb 08 18:33:07 UTC 2026","Sun Feb 08 18:33:07 UTC 2026","0","tests.ui","test_checkout","","","","TC16: Place order after login","
     Given a logged-in user
-    When they click logout
-    Then they should see the login form
+    When they add products, proceed to checkout, and complete payment
+    Then the order should be placed successfully
     "
-"passed","Sat Feb 07 10:48:27 UTC 2026","Sat Feb 07 10:48:28 UTC 2026","1337","tests.ui","test_auth","","","","Login fails with invalid credentials","
-    Given a user on the login page
-    When they attempt to login with invalid credentials
-    Then they should see an error message
+"broken","Sun Feb 08 18:33:08 UTC 2026","Sun Feb 08 18:33:08 UTC 2026","0","tests.api","test_auth_api","TestAuthAPI","","","API returns 404 for invalid credentials","
+        Given non-existent user credentials
+        When login is attempted via API
+        Then the response should indicate user not found
+        "
+"broken","Sun Feb 08 18:33:09 UTC 2026","Sun Feb 08 18:33:09 UTC 2026","0","tests.ui","test_products","","","","User can add product to cart","
+    Given a user on the products page
+    When they add first product to the cart
+    And click continue shopping
+    And they add second product to the cart
+    And click view cart
+    Then they should be redirected to the cart page
     "
-"passed","Sat Feb 07 10:48:37 UTC 2026","Sat Feb 07 10:48:40 UTC 2026","3017","tests.ui","test_auth","","","","Complete account lifecycle: register, logout, login, delete","
+"broken","Sun Feb 08 18:33:07 UTC 2026","Sun Feb 08 18:33:07 UTC 2026","0","tests.ui","test_contact","","","","User can contact us successfully","
+    Given a user on the contact us page
+    When they fill out the contact form
+    And click submit
+    Then they should see a success message
+    "
+"broken","Sun Feb 08 18:33:10 UTC 2026","Sun Feb 08 18:33:10 UTC 2026","0","tests.ui","test_auth","","","","Complete account lifecycle: register, logout, login, delete","
     Given a new user
     When they register, logout, login again, and delete their account
     Then each step should complete successfully
     "
-"passed","Sat Feb 07 10:48:32 UTC 2026","Sat Feb 07 10:48:32 UTC 2026","114","tests.ui","test_auth","","","","Registration fails for existing email","
+"broken","Sun Feb 08 18:33:09 UTC 2026","Sun Feb 08 18:33:09 UTC 2026","0","tests.ui","test_auth","","","","Registration fails for existing email","
     Given an email that is already registered
     When a user attempts to sign up with that email
     Then they should see an error message
     "
-"passed","Sat Feb 07 10:48:33 UTC 2026","Sat Feb 07 10:48:35 UTC 2026","2027","tests.ui","test_auth","","","","User can complete full registration flow","
+"broken","Sun Feb 08 18:33:09 UTC 2026","Sun Feb 08 18:33:09 UTC 2026","0","tests.ui","test_auth","","","","User can logout successfully","
+    Given a logged-in user
+    When they click logout
+    Then they should see the login form
+    "
+"broken","Sun Feb 08 18:33:09 UTC 2026","Sun Feb 08 18:33:09 UTC 2026","0","tests.ui","test_navigation","","","","User can navigate to Test Cases page","
+    Given a user on the home page
+    When they click on 'Test Cases' link in header
+    Then they should be navigated to the test cases page
+    "
+"broken","Sun Feb 08 18:33:07 UTC 2026","Sun Feb 08 18:33:07 UTC 2026","0","tests.api","test_products_api","","","","API returns all products with valid structure","
+    Given the products API endpoint
+    When a GET request is made
+    Then it should return a list of products with expected fields
+    "
+"broken","Sun Feb 08 18:33:07 UTC 2026","Sun Feb 08 18:33:07 UTC 2026","0","tests.ui","test_products","","","","Products page displays product list","
+    Given a user navigates to the products page
+    When the page loads
+    Then the products list should be visible
+    And at least one product should be displayed
+    "
+"broken","Sun Feb 08 18:33:09 UTC 2026","Sun Feb 08 18:33:09 UTC 2026","0","tests.ui","test_checkout","","","","TC15: Place order after registration","
+    Given a new user who just registered
+    When they add products and complete checkout
+    Then the order should be placed successfully
+    And the account should be cleaned up
+    "
+"broken","Sun Feb 08 18:33:09 UTC 2026","Sun Feb 08 18:33:09 UTC 2026","0","tests.api","test_auth_api","TestAuthAPI","","","Complete account lifecycle via API: register, login, delete","
+        Given a new user
+        When they register, login, and delete via API
+        Then each operation should succeed
+        "
+"broken","Sun Feb 08 18:33:10 UTC 2026","Sun Feb 08 18:33:10 UTC 2026","0","tests.ui","test_auth","","","","User can complete full registration flow","
     Given a new user with unique email
     When they complete the full registration form
     Then their account should be created
     And they should be able to delete the account
+    "
+"broken","Sun Feb 08 18:33:07 UTC 2026","Sun Feb 08 18:33:07 UTC 2026","0","tests.ui","test_auth","","","","User can login with valid credentials","
+    Given a registered user
+    When they login with valid credentials
+    Then they should see their username in the header
+    "
+"broken","Sun Feb 08 18:33:07 UTC 2026","Sun Feb 08 18:33:07 UTC 2026","0","tests.api","test_auth_api","TestAuthAPI","","","API returns success for valid credentials","
+        Given a registered user
+        When their credentials are verified via API
+        Then the response should indicate user exists
+        "
+"broken","Sun Feb 08 18:33:09 UTC 2026","Sun Feb 08 18:33:09 UTC 2026","0","tests.ui","test_auth","","","","Login fails with invalid credentials","
+    Given a user on the login page
+    When they attempt to login with invalid credentials
+    Then they should see an error message
+    "
+"broken","Sun Feb 08 18:33:09 UTC 2026","Sun Feb 08 18:33:09 UTC 2026","0","tests.ui","test_products","","","","User can search for products","
+    Given a user on the products page
+    When they search for a product
+    Then all the products related to search are visible
     "
