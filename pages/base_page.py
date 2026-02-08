@@ -20,3 +20,5 @@ class BasePage:
     @property
     def title(self) -> str:
         return self.page.title()
+
+    

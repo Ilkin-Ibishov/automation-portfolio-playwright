@@ -7,6 +7,8 @@ class URLS:
     API_BASE_URL = "https://automationexercise.com/api"
     PRODUCTS_URL = "https://automationexercise.com/products"
     CART_URL = "https://automationexercise.com/view_cart"
+    CHECKOUT_URL = "https://automationexercise.com/checkout"
+    PAYMENT_URL = "https://automationexercise.com/payment"
     CONTACT_US_URL = "https://automationexercise.com/contact_us"
 
 
@@ -61,6 +63,18 @@ class ADDRESS_DATA:
         "city": "San Francisco",
         "zipcode": "94105",
         "phone": "+1-555-123-4567",
+    }
+
+
+class PAYMENT_DATA:
+    """Test payment card data."""
+    
+    DEFAULT = {
+        "name_on_card": "John Doe",
+        "card_number": "4111111111111111",
+        "cvc": "123",
+        "expiry_month": "12",
+        "expiry_year": "2025",
     }
 
 

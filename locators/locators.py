@@ -92,5 +92,27 @@ class ContactUsPageLocators:
     FILE_INPUT = "input[name='upload_file']"
     SUBMIT_BTN = "[data-qa='submit-button']"
     SUCCESS_MESSAGE = ".contact-form .alert-success"
-    
-    
+
+
+class CheckoutPageLocators:
+    """Locators for checkout/order review page."""
+    DELIVERY_ADDRESS = "#address_delivery"
+    BILLING_ADDRESS = "#address_invoice"
+    CART_ITEMS = "#cart_info tbody tr"
+    COMMENT_TEXTAREA = "textarea.form-control"
+    PLACE_ORDER_BTN = "a[href='/payment']"
+    REGISTER_LOGIN_BTN = ".modal-body a[href='/login']"
+
+
+class PaymentPageLocators:
+    """Locators for payment page."""
+    NAME_ON_CARD = "[data-qa='name-on-card']"
+    CARD_NUMBER = "[data-qa='card-number']"
+    CVC = "[data-qa='cvc']"
+    EXPIRY_MONTH = "[data-qa='expiry-month']"
+    EXPIRY_YEAR = "[data-qa='expiry-year']"
+    PAY_CONFIRM_BTN = "[data-qa='pay-button']"
+    SUCCESS_MESSAGE = "h2.title b"
+    ORDER_PLACED_CONTAINER = "[data-qa='order-placed']"
+    DOWNLOAD_INVOICE_BTN = ".btn.btn-default.check_out"
+    CONTINUE_BTN = "[data-qa='continue-button']"

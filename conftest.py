@@ -20,6 +20,9 @@ from pages.auth_page import AuthPage
 from pages.products_page import ProductsPage
 from pages.registration_page import RegistrationPage
 from pages.contactus_page import ContactUsPage
+from pages.cart_page import CartPage
+from pages.checkout_page import CheckoutPage
+from pages.payment_page import PaymentPage
 from utils.api_client import APIClient
 from utils.constants import USER_DATA
 
@@ -117,10 +120,29 @@ def registration_page(page: Page) -> RegistrationPage:
     """Provide RegistrationPage instance."""
     return RegistrationPage(page)
 
+
 @pytest.fixture
 def contact_us_page(page: Page) -> ContactUsPage:
     """Provide ContactUsPage instance."""
     return ContactUsPage(page)
+
+
+@pytest.fixture
+def cart_page(page: Page) -> CartPage:
+    """Provide CartPage instance."""
+    return CartPage(page)
+
+
+@pytest.fixture
+def checkout_page(page: Page) -> CheckoutPage:
+    """Provide CheckoutPage instance."""
+    return CheckoutPage(page)
+
+
+@pytest.fixture
+def payment_page(page: Page) -> PaymentPage:
+    """Provide PaymentPage instance."""
+    return PaymentPage(page)
 
 # =============================================================================
 # UI Test Fixtures

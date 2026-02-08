@@ -95,5 +95,6 @@ class TestAuthAPI:
             assert body["responseCode"] == 200, f"Deletion failed: {body}"
             assert body["message"] == "Account deleted!", f"Unexpected message: {body}"
             
+            
             # Remove from cleanup since we deleted it
             api_account_cleanup.pop()

@@ -37,3 +37,4 @@ def test_get_all_products(api_client: APIClient):
     expected_fields = ["id", "name", "price", "brand", "category"]
     for field in expected_fields:
         assert field in product, f"Product missing '{field}': {product.keys()}"
+    

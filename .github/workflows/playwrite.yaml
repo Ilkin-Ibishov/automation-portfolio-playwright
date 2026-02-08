@@ -47,22 +47,51 @@ jobs:
     - uses: actions/setup-python@v4
       with:
         python-version: '3.12'
+        cache: 'pip'  # Cache pip dependencies
+    
+    # Cache Playwright browsers
+    - name: Cache Playwright browsers
+      uses: actions/cache@v4
+      id: playwright-cache
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+    
+    # Cache Allure CLI
+    - name: Cache Allure CLI
+      uses: actions/cache@v4
+      id: allure-cache
+      with:
+        path: allure-2.24.0
+        key: allure-2.24.0
+    
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    
     - name: Install Java (required for Allure)
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '17'
+    
     - name: Install Allure CLI
+      if: steps.allure-cache.outputs.cache-hit != 'true'
       run: |
         curl -o allure-2.24.0.tgz -Ls https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.24.0/allure-commandline-2.24.0.tgz
         tar -zxvf allure-2.24.0.tgz
-        echo "$PWD/allure-2.24.0/bin" >> $GITHUB_PATH
+    
+    - name: Add Allure to PATH
+      run: echo "$PWD/allure-2.24.0/bin" >> $GITHUB_PATH
+    
     - name: Install Playwright browsers
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: playwright install --with-deps chromium
+    
+    - name: Install Playwright dependencies (if cached)
+      if: steps.playwright-cache.outputs.cache-hit == 'true'
+      run: playwright install-deps chromium
     - name: Run Playwright tests
       run: |
         # Determine test path based on input (default to all for push/PR triggers)
